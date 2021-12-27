@@ -1,7 +1,7 @@
 import { getCategories, getProductsFromCategoryAndQuery } from "../../services/api";
-
-
+export const GET_CATEGORY = 'GET_CATEGORY';
 export const SAVE_DATA_CATEGORIES = 'SAVE_DATA_CATEGORIES';
+export const SET_LOADING = 'SET_LOADING';
 
 export const saveDataCategories = (payload) => ({
     type: SAVE_DATA_CATEGORIES,
@@ -13,8 +13,12 @@ export const resultApiCategories = () => async (dispatch) => {
     dispatch(saveDataCategories(result));
 }
 
+export const setLoading= (payload) =>( {
+  type: SET_LOADING,
+  payload,
+})
 
-export const GET_CATEGORY = 'GET_CATEGORY';
+
 
 export const filterCategory = (payload) => ({
     type: GET_CATEGORY,
@@ -23,5 +27,5 @@ export const filterCategory = (payload) => ({
 
 export const getFilterCategory = (query) => async (dispatch) => {
     const result = await getProductsFromCategoryAndQuery('', query);
-    dispatch(filterCategory(result));
+    dispatch(filterCategory(result.results));
 }

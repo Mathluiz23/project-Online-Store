@@ -1,23 +1,23 @@
-import React, { useState} from "react";
+import React, { useState,useEffect} from "react";
 import { connect } from "react-redux";
 import '../style/header.css'
 import { BiSearchAlt } from 'react-icons/bi';
-import { getFilterCategory } from "../redux/actions";
-import { getCategories } from "../services/api";
+import { getFilterCategory, setLoading } from "../redux/actions";
 
-function Header({categories, getCategory }){
-    const [category, setCategory] = useState('')
-    const [ categoryApi, setCategoryApi] = useState('')
+function Header({categories, getCategory,loading }){
+    const [category, setCategory] = useState('Mais Categorias');
 
-    async function handleClick(e) {
-        console.log(e);
-        setCategory(e)
-        const result = await getCategory(category)
-        setCategoryApi(result);
-        console.log("oi")
+    function handleChange(e) {
+        setCategory(e.target.value);
     }
 
-    console.log(category);
+    useEffect(async () => {
+      loading(true)
+      const api = await getCategory(category);
+      loading(false);
+    }, [category])
+
+    
     return(
       <header className="header-container">
         <form>
@@ -29,12 +29,11 @@ function Header({categories, getCategory }){
           <button
           className="header-button-search"
           type="button"
-          onClick={handleClick}
           >
           <BiSearchAlt  size={30}/>
           </button>
         </form>
-        <select onChange={(e) => handleClick(e)} value={category}>
+        <select onChange={(e) => handleChange(e)} value={category}>
         { categories.map((category) => <option  key={category.id}>{category.name}</option>)}
         </select>
       </header>
@@ -51,6 +50,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch){
     return {
         getCategory: (itemCategory) => dispatch(getFilterCategory(itemCategory)),
+        loading: (isloading) => dispatch(setLoading(isloading))
     }
 }
 
