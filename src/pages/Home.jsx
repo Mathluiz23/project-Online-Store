@@ -10,7 +10,7 @@ function Home({saveProducts, intensCategory,loading}) {
 
     useEffect(() => {
     saveProducts();
-    }, [])
+    }, [saveProducts])
 
     return(
     
