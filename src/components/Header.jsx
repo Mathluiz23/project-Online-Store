@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from "react";
+import React, { useState,useEffect,useCallback} from "react";
 import { connect } from "react-redux";
 import '../style/header.css'
 import { BiSearchAlt } from 'react-icons/bi';
@@ -11,11 +11,17 @@ function Header({categories, getCategory,loading }){
         setCategory(e.target.value);
     }
 
-    useEffect(async () => {
-      loading(true)
-      const api = await getCategory(category);
-      loading(false);
-    }, [category])
+    const callback = useCallback(
+      async() => {
+        loading(true)
+        await getCategory(category);
+        loading(false);
+      },
+      [category,loading,getCategory],
+    )
+    useEffect(() => {
+      callback();
+    }, [callback])
 
     
     return(
