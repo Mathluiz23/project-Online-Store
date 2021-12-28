@@ -1,9 +1,12 @@
 import "../style/Loading.css";
+
 function Loading() {
   return (
-    <div className="loading">
-      <h1>loading...</h1>
-      </div>
+    <>
+    <div className="loading"></div>
+    <h3 className="loading">Loading...</h3>
+    </>
+
   )
 }
 
