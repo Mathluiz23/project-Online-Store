@@ -7,18 +7,19 @@ import { getProductById } from '../services/api';
 function ProductDetails({ intensCategory,loading }) {
   const { pathname } = useLocation();
   const pageId = pathname.split('/')[2];
-  const [produto, setProduto] = useState({ });
+  const [produto, setProduto] = useState({ title: [], attributes: []});
   
 
    async function fetchProducts(){
     const product =  await getProductById(pageId);
-    setProduto(product.body);
+    setProduto(product);
   }
 
   useEffect(() => {
    fetchProducts();
   }, [])
 
+  console.log(produto)
   return (
    
       <div className="card-details">
@@ -29,16 +30,18 @@ function ProductDetails({ intensCategory,loading }) {
           <p>{`R$ ${produto.price}`}</p>
           <button>Adicionar</button>
         </div>
-        {/* <div>
+        <div>
             <h4>Especificações Técnicas</h4>
             <ul>
+              { produto.attributes.map((attribute) => (
                 <li
                   key={ attribute.id }
                 >
                   { `${attribute.name}: ${attribute.value_name}` }
                 </li>
+              )) }
             </ul>
-        </div> */}
+        </div>
       
 
       </div>

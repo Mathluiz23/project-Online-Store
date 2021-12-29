@@ -1,7 +1,8 @@
-import { getCategories, getProductsFromCategoryAndQuery } from "../../services/api";
+import { getCategories, getProductsFromCategoryAndQuery, getProductById} from "../../services/api";
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const SAVE_DATA_CATEGORIES = 'SAVE_DATA_CATEGORIES';
 export const SET_LOADING = 'SET_LOADING';
+export const SAVE_DATA_DETAILS = 'SAVE_DATA_DETAILS'; //details
 
 export const saveDataCategories = (payload) => ({
     type: SAVE_DATA_CATEGORIES,
@@ -29,3 +30,19 @@ export const getFilterCategory = (query) => async (dispatch) => {
     const result = await getProductsFromCategoryAndQuery('', query);
     dispatch(filterCategory(result.results));
 }
+
+
+
+// details
+
+export const saveDataDetails = (payload) => ({
+    type: SAVE_DATA_DETAILS,
+    payload,
+});
+
+export const resultApiDetails = (id) => async (dispatch) => {
+    const result = await getProductById(id);
+    dispatch(saveDataDetails(result));
+}
+
+//details

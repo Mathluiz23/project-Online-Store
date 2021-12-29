@@ -1,9 +1,10 @@
-import { SAVE_DATA_CATEGORIES, GET_CATEGORY,SET_LOADING} from '../actions/index';
+import { SAVE_DATA_CATEGORIES, GET_CATEGORY,SET_LOADING } from '../actions/index';
 
 const INITIAL_STATE = {
    categories:[],
    productsByCategory:[],
    loading: false,
+   ptoDetails:[],
 };
 
 const productReducer = (state = INITIAL_STATE, action ) => {
