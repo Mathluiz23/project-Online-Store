@@ -6,7 +6,7 @@ import { getProductById } from '../services/api';
 import { setLoading }  from '../redux/actions';
 import Loading from "./Loading";
 
-function ProductDetails({ intensCategory,loading, isLoading }) {
+function ProductDetails({ loading, isLoading }) {
   const { pathname } = useLocation();
   const pageId = pathname.split('/')[2];
   const [produto, setProduto] = useState({title:[], attributes:[]});
@@ -25,7 +25,7 @@ function ProductDetails({ intensCategory,loading, isLoading }) {
    fetchProducts();
   }, [])
   
-    const {title , attributes } = produto;
+  const {title , attributes } = produto;
 
   if (isLoading) {
     return <Loading/>;
