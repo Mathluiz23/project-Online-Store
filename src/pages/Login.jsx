@@ -35,7 +35,7 @@ function Login() {
             Senha:
             <input type="password" id="password" value={password} onChange={ (e)=> setPassword(e.target.value)} />
           </label>
-          <button type="button" disabled={password.length < minLength || !isValidEmail}  onClick={ handleClick }>Logar</button>
+          <button type="button" disabled={password.length < minLength || !isValidEmail || !surName}  onClick={ handleClick }>Logar</button>
           </div>
         </div>
       </>
