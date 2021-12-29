@@ -18,7 +18,7 @@ function Home({saveProducts, intensCategory,loading}) {
         <Header/>
         <div className="product-card-container">
         { loading ? <Loading/> :
-        intensCategory.map((product)=> <ProductCard price={product.price} thumbnail={product.thumbnail} title={product.title}/>)
+        intensCategory.map((product)=> <ProductCard price={product.price} thumbnail={product.thumbnail} title={product.title} id={product.id}/>)
         }
         </div>
     </div>
