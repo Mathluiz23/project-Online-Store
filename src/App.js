@@ -1,14 +1,16 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import ProductDetails from './components/ProductDetails';
+import Login from './pages/Login';
+import PageProductDetails from './pages/PageProductDetails';
 
 function App() {
   return (
-   <Routes>
-     <Route path="/" element={<Home/>}/>
-     <Route path="/details/:id" element={<ProductDetails/>}/>
-   </Routes>
+  <Routes>
+    <Route path="/login" element={<Login/>}/>
+    <Route path="/details/:id" element={<PageProductDetails/>}/>
+    <Route exact path="/" element={<Home/>}/>
+  </Routes>
   );
 }
 

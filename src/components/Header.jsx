@@ -1,12 +1,18 @@
 import React, { useState,useEffect,useCallback} from "react";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import '../style/header.css'
 import { BiSearchAlt } from 'react-icons/bi';
+import {AiOutlineUser} from 'react-icons/ai'
 import { getFilterCategory, setLoading } from "../redux/actions";
 
 function Header({categories, getCategory,loading }){
     const [category, setCategory] = useState('Mais Categorias');
-    const [searchName, setSearchName] = useState('')
+    const [searchName, setSearchName] = useState('');
+    const [logado, setLogado] = useState('Logar');
+    const [userName, setUserName] = useState();
+
+    const navigate = useNavigate();
 
     function handleChange(e) {
         setCategory(e.target.value);
@@ -26,11 +32,30 @@ function Header({categories, getCategory,loading }){
       },
       [category,loading,getCategory],
     );
+  
+    function handleLogin() {
+      if(logado === 'Sair'){
+        localStorage.removeItem('user');
+        navigate(0);
+        return;
+      }
+      navigate('/login')
+    }
+
+    
 
     useEffect(() => {
       callback();
     }, [callback]);
-
+    
+    useEffect(()=>{
+      const exists = localStorage.getItem('user')
+        if(exists) {
+          const jsonSurName = JSON.parse(exists);
+          setUserName(jsonSurName.surName);
+          setLogado('Sair');
+        }
+    },[]);
     
     return(
       <header className="header-container">
@@ -51,6 +76,8 @@ function Header({categories, getCategory,loading }){
           <BiSearchAlt  size={30}/>
           </button>
         </form>
+        <button className="button-login" onClick={ handleLogin }><AiOutlineUser size={35}/>{logado}</button>
+        { userName ? <div className="userName">{userName}</div> : ""}
         </div>
         <div className='nav-bar'>
         <select class="form-select" onmousedown={ categories.lengh } onChange={(e) => handleChange(e)} value={category}>

@@ -1,4 +1,4 @@
-import { getCategories, getProductsFromCategoryAndQuery, getProductById} from "../../services/api";
+import { getCategories, getProductsFromCategoryAndQuery } from "../../services/api";
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const SAVE_DATA_CATEGORIES = 'SAVE_DATA_CATEGORIES';
 export const SET_LOADING = 'SET_LOADING';
@@ -35,14 +35,31 @@ export const getFilterCategory = (query) => async (dispatch) => {
 
 // details
 
-export const saveDataDetails = (payload) => ({
-    type: SAVE_DATA_DETAILS,
-    payload,
-});
+// export const saveDataDetails = (payload) => ({
+//     type: SAVE_DATA_DETAILS,
+//     payload,
+// });
 
-export const resultApiDetails = (id) => async (dispatch) => {
-    const result = await getProductById(id);
-    dispatch(saveDataDetails(result));
-}
+// export const resultApiDetails = (id) => async (dispatch) => {
+//     const result = await getProductById(id);
+//     dispatch(saveDataDetails(result));
+// }
 
 //details
+
+export const ADD_EVALUATION = 'ADD_EVALUATION';
+
+const addEvaluation = (productId, evaluation) => ({
+  type: ADD_EVALUATION,
+  payload: { productId, evaluation },
+});
+
+export const addEvaluationThunk = (productId, evaluation) => (dispatch, getState) => {
+  const { evaluations } = getState();
+
+  if (evaluations[productId]) {
+    dispatch(addEvaluation(productId, [...evaluations[productId], evaluation]));
+  } else {
+    dispatch(addEvaluation(productId, [evaluation]));
+  }
+};

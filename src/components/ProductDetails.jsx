@@ -1,59 +1,113 @@
 import React, { useState, useEffect } from "react";
-import "../style/ProducCard.css"
 import { useLocation } from 'react-router-dom';
 import { connect } from "react-redux";
 import { getProductById } from '../services/api';
+import { setLoading }  from '../redux/actions';
+import Loading from "./Loading";
+// import EvaluationForm from "./EvaluationForm";
+import StarRatings from 'react-star-ratings';
+import "../style/ProductDetails.css"
+import FreteGratis from '../FreteGratis.png';
 
-function ProductDetails({ intensCategory,loading }) {
+function ProductDetails({ loading, isLoading }) {
   const { pathname } = useLocation();
   const pageId = pathname.split('/')[2];
-  const [produto, setProduto] = useState({ title: [], attributes: []});
+
+  const [produto, setProduto] = useState({title:[], attributes:[]});
+  const [rating, setRating] = useState(0);
+
   
 
-   async function fetchProducts(){
+  async function fetchProducts(){
+    loading(true);
     const product =  await getProductById(pageId);
-    setProduto(product);
+    console.log(product);
+    setProduto(product.body);
+    loading(false);
   }
 
   useEffect(() => {
    fetchProducts();
   }, [])
+  
 
-  console.log(produto)
+  function handleStarChange(rating) {
+    setRating(rating)
+  };
+
+
+  const {title , attributes } = produto;
+
+  if (isLoading) {
+    return <Loading/>;
+  }
+
   return (
-   
-      <div className="card-details">
-        <h1>{produto.title}</h1>
-          {/* <h2>{ produto.title.length < 100 ? produto.title : produto.title.substr(0,100) + "..." }</h2> */}
+    <>
+      <div className="container-product-card-details">
+
+        <div className="image-evaluation-details">
+          {<h2>{title.length < 100 ? produto.title : produto.title.substr(0,100) + "..." }</h2>}
           <img src={ produto.thumbnail } alt={ produto.title } />
-        <div>
-          <p>{`R$ ${produto.price}`}</p>
-          <button>Adicionar</button>
+
+          <div className="evaluation-star">
+            <h5>Avaliações</h5>
+          <StarRatings
+            rating={rating}
+            starRatedColor="rgb(255, 194, 25)"
+            starHoverColor="rgb(255, 194, 25)"
+            changeRating={ (e) => handleStarChange(e) }
+            numberOfStars={5}
+            name="rating"
+            starDimension="2em"
+            starSpacing="0.5em"
+            
+          />
+          </div>
         </div>
-        <div>
+
+         
+            <div className="container-buttons-details">
+            <h3>{`R$ ${produto.price}`}</h3>
+            
+              <button className="button-buy-details">Adicionar</button>
+              <button className="button-add-cart-details">Comprar agora</button>
+
+            </div>
+            <div className="image-frete">
+              { (produto.shipping.free_shipping === true)
+                ? <img src={ FreteGratis } alt="frete-gratis" />
+                : '' }
+            </div>
+            
+          
+      </div>
+        { <div className="espec-tec-details">
             <h4>Especificações Técnicas</h4>
             <ul>
-              { produto.attributes.map((attribute) => (
-                <li
-                  key={ attribute.id }
-                >
-                  { `${attribute.name}: ${attribute.value_name}` }
-                </li>
-              )) }
+              { attributes.map((attribute) => (
+              <li key={ attribute.id }>{ `${attribute.name}: ${attribute.value_name}` }</li>)) }
             </ul>
-        </div>
-      
-
-      </div>
-  )
+          </div>
+        }
+          
+        {/* <EvaluationForm /> */}
+    </>
+  );
 }
 
 
 function mapStateToProps(state) {
   return {
     intensCategory: state.productReducer.productsByCategory,
-    loading: state.productReducer.loading,
+    isLoading: state.productReducer.loading,
   }
 }
 
-export default connect(mapStateToProps)(ProductDetails);
+function mapDispatchToProps(dispatch){
+  return {
+      loading: (isloading) => dispatch(setLoading(isloading))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ProductDetails);
