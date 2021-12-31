@@ -1,17 +1,27 @@
 import React, { useEffect} from "react";
 import { connect } from 'react-redux';
 import Header from "../components/Header";
-import { resultApiCategories } from "../redux/actions";
+import { resultApiCategories,setAmountItensCart } from "../redux/actions";
 import ProductCard from "../components/ProductCard";
 import Loading from "../components/Loading";
 import "../style/ProducCard.css";
 
-function Home({saveProducts, intensCategory,loading}) {
+function Home({saveProducts, intensCategory,loading,setAmountIten}) {
 
     useEffect(() => {
     saveProducts();
     }, [saveProducts])
-
+    
+    useEffect(() => {
+        const exist = localStorage.getItem('cart');
+        if (exist) {
+            const json = JSON.parse(exist);
+            setAmountIten(json.length);
+            return;
+        }
+        setAmountIten(0);
+    }, []);
+    
     return(
     
     <div>
@@ -28,6 +38,7 @@ function Home({saveProducts, intensCategory,loading}) {
 function mapDispatchToProps(dispacth) {
     return {
         saveProducts: () => dispacth(resultApiCategories()),
+        setAmountIten: (amount) => dispacth(setAmountItensCart(amount)),
     }
 }
 
