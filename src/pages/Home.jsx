@@ -9,11 +9,8 @@ import promocao from '../promocao.gif'
 import "../style/ProducCard.css";
 import "../style/Home.css";
 
-function Home({saveProducts, intensCategory,loading,setAmountIten}) {
+function Home({ intensCategory,loading,setAmountIten}) {
 
-    useEffect(() => {
-    saveProducts();
-    }, [saveProducts])
     
     useEffect(() => {
         const exist = localStorage.getItem('cart');
@@ -45,7 +42,6 @@ function Home({saveProducts, intensCategory,loading,setAmountIten}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        saveProducts: () => dispatch(resultApiCategories()),
         setAmountIten: (amount) => dispatch(setAmountItensCart(amount)),
     }
 }
