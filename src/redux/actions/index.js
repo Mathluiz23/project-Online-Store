@@ -3,7 +3,6 @@ export const GET_CATEGORY = 'GET_CATEGORY';
 export const SAVE_DATA_CATEGORIES = 'SAVE_DATA_CATEGORIES';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_AMOUNT_ITENS_CART = 'SET_AMOUNT_ITENS_CART';
-export const SAVE_DATA_DETAILS = 'SAVE_DATA_DETAILS'; //details
 
 export const saveDataCategories = (payload) => ({
     type: SAVE_DATA_CATEGORIES,

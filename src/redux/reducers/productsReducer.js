@@ -1,11 +1,11 @@
 import { SAVE_DATA_CATEGORIES, GET_CATEGORY,SET_LOADING, SET_AMOUNT_ITENS_CART} from '../actions/index';
 
+
 const INITIAL_STATE = {
    categories:[],
    productsByCategory:[],
    loading: false,
    amountItensCart: '',
-   ptoDetails:[],
 };
 
 const productReducer = (state = INITIAL_STATE, action ) => {
