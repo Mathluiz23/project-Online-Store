@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import '../style/header.css'
 import { BiSearchAlt,BiCart } from 'react-icons/bi';
 import {AiOutlineUser} from 'react-icons/ai'
-import { getFilterCategory, setLoading } from "../redux/actions";
+import { getFilterCategory, setLoading, resultApiCategories} from "../redux/actions";
 
-function Header({categories, getCategory,loading,itensCart }){
+function Header({categories, getCategory,loading,itensCart, saveProducts}){
     const [category, setCategory] = useState('Mais Categorias');
     const [searchName, setSearchName] = useState('');
     const [logado, setLogado] = useState('Logar');
@@ -14,6 +14,10 @@ function Header({categories, getCategory,loading,itensCart }){
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+      saveProducts();
+    }, [])
+    
     function handleChange(e) {
         setCategory(e.target.value);
     }
@@ -101,7 +105,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch){
     return {
         getCategory: (itemCategory) => dispatch(getFilterCategory(itemCategory)),
-        loading: (isloading) => dispatch(setLoading(isloading))
+        loading: (isloading) => dispatch(setLoading(isloading)),
+        saveProducts: () => dispatch(resultApiCategories()),
     }
 }
 
