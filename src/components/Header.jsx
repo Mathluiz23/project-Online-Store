@@ -2,11 +2,11 @@ import React, { useState,useEffect,useCallback} from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import '../style/header.css'
-import { BiSearchAlt } from 'react-icons/bi';
+import { BiSearchAlt,BiCart } from 'react-icons/bi';
 import {AiOutlineUser} from 'react-icons/ai'
 import { getFilterCategory, setLoading } from "../redux/actions";
 
-function Header({categories, getCategory,loading }){
+function Header({categories, getCategory,loading,itensCart }){
     const [category, setCategory] = useState('Mais Categorias');
     const [searchName, setSearchName] = useState('');
     const [logado, setLogado] = useState('Logar');
@@ -19,6 +19,7 @@ function Header({categories, getCategory,loading }){
     }
 
     async function handleClick(){
+      navigate('/');
       loading(true)
       await getCategory(searchName);
       loading(false);
@@ -41,13 +42,12 @@ function Header({categories, getCategory,loading }){
       }
       navigate('/login')
     }
-
     
 
     useEffect(() => {
       callback();
     }, [callback]);
-    
+
     useEffect(()=>{
       const exists = localStorage.getItem('user')
         if(exists) {
@@ -56,7 +56,8 @@ function Header({categories, getCategory,loading }){
           setLogado('Sair');
         }
     },[]);
-    
+
+    console.log(itensCart);
     return(
       <header className="header-container">
         <div className='form-container'>
@@ -78,6 +79,7 @@ function Header({categories, getCategory,loading }){
         </form>
         <button className="button-login" onClick={ handleLogin }><AiOutlineUser size={35}/>{logado}</button>
         { userName ? <div className="userName">{userName}</div> : ""}
+        <button className="button-login" onClick={ ()=> navigate('/compras')} ><BiCart size={35}/>{itensCart}</button>
         </div>
         <div className='nav-bar'>
         <select class="form-select" onmousedown={ categories.lengh } onChange={(e) => handleChange(e)} value={category}>
@@ -92,6 +94,7 @@ function Header({categories, getCategory,loading }){
 function mapStateToProps(state) {
     return {
         categories: state.productReducer.categories,
+        itensCart: state.productReducer.amountItensCart,
     }
 }
 

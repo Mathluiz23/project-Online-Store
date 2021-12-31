@@ -2,7 +2,7 @@ import { getCategories, getProductsFromCategoryAndQuery } from "../../services/a
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const SAVE_DATA_CATEGORIES = 'SAVE_DATA_CATEGORIES';
 export const SET_LOADING = 'SET_LOADING';
-export const SAVE_DATA_DETAILS = 'SAVE_DATA_DETAILS'; //details
+export const SET_AMOUNT_ITENS_CART = 'SET_AMOUNT_ITENS_CART';
 
 export const saveDataCategories = (payload) => ({
     type: SAVE_DATA_CATEGORIES,
@@ -19,6 +19,10 @@ export const setLoading= (payload) =>( {
   payload,
 })
 
+export const setAmountItensCart = (payload) => ({
+  type: SET_AMOUNT_ITENS_CART,
+  payload,
+})
 
 
 export const filterCategory = (payload) => ({
