@@ -4,7 +4,10 @@ import Header from "../components/Header";
 import { resultApiCategories,setAmountItensCart } from "../redux/actions";
 import ProductCard from "../components/ProductCard";
 import Loading from "../components/Loading";
+import frete from '../frete.gif'
+import promocao from '../promocao.gif'
 import "../style/ProducCard.css";
+import "../style/Home.css";
 
 function Home({saveProducts, intensCategory,loading,setAmountIten}) {
 
@@ -26,6 +29,11 @@ function Home({saveProducts, intensCategory,loading,setAmountIten}) {
     
     <div>
         <Header/>
+        <div className="folders-home">
+            <img className="gifs" src={frete}></img>
+            <img className="gifs" src={promocao}></img>
+        </div>
+
         <div className="product-card-container">
         { loading ? <Loading/> :
         intensCategory.map((product)=> <ProductCard price={product.price} thumbnail={product.thumbnail} title={product.title} id={product.id}/>)

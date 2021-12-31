@@ -5,6 +5,7 @@ const INITIAL_STATE = {
    productsByCategory:[],
    loading: false,
    amountItensCart: '',
+   ptoDetails:[],
 };
 
 const productReducer = (state = INITIAL_STATE, action ) => {
