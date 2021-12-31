@@ -57,7 +57,7 @@ function Header({categories, getCategory,loading,itensCart }){
         }
     },[]);
 
-    console.log(itensCart);
+    // console.log(itensCart);
     return(
       <header className="header-container">
         <div className='form-container'>

@@ -30,8 +30,8 @@ function Home({saveProducts, intensCategory,loading,setAmountIten}) {
     <div>
         <Header/>
         <div className="folders-home">
-            <img className="gifs" src={frete}></img>
-            <img className="gifs" src={promocao}></img>
+            <img className="gifs" src={frete} alt="imagem-frete-gratis"></img>
+            <img className="gifs" src={promocao} alt="imagem-promocao"></img>
         </div>
 
         <div className="product-card-container">
@@ -43,10 +43,10 @@ function Home({saveProducts, intensCategory,loading,setAmountIten}) {
     )
 }
 
-function mapDispatchToProps(dispacth) {
+function mapDispatchToProps(dispatch) {
     return {
-        saveProducts: () => dispacth(resultApiCategories()),
-        setAmountIten: (amount) => dispacth(setAmountItensCart(amount)),
+        saveProducts: () => dispatch(resultApiCategories()),
+        setAmountIten: (amount) => dispatch(setAmountItensCart(amount)),
     }
 }
 
