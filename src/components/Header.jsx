@@ -63,6 +63,7 @@ function Header({categories, getCategory,loading,itensCart, saveProducts}){
 
     // console.log(itensCart);
     return(
+      <>
       <header className="header-container">
         <div className='form-container'>
         <form>
@@ -91,6 +92,7 @@ function Header({categories, getCategory,loading,itensCart, saveProducts}){
         </select>
         </div>
       </header>
+      </>
 
     );
 }

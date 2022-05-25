@@ -9,6 +9,7 @@ import Header from "./Header";
 import StarRatings from 'react-star-ratings';
 import "../style/ProductDetails.css"
 import FreteGratis from '../FreteGratis.png';
+import { useNavigate } from "react-router-dom";
 
 function ProductDetails({ setAmountIten }) {
   
@@ -24,6 +25,7 @@ function ProductDetails({ setAmountIten }) {
     pictures: [],
   });
   const [rating, setRating] = useState(0);
+  const navigate = useNavigate();
 
   
   async function fetchProducts(){
@@ -123,7 +125,12 @@ function ProductDetails({ setAmountIten }) {
                 <h2>{`R$ ${price.toFixed(2)}`}</h2>
               </div>
               <div className="buttons">
-                <button className="button-add-cart-details">Comprar agora</button>
+                <button
+                  className="button-add-cart-details"
+                  onClick={ ()=> navigate('/finalizar-compras')}
+                >
+                  Comprar agora
+                </button>
                 <button
                   className="button-buy-details" 
                   onClick={ (e) =>handleClick(e) }

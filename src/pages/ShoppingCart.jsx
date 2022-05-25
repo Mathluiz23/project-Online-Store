@@ -1,12 +1,13 @@
 import React, {useState,useEffect} from 'react';
 import Header from '../components/Header';
 import "../style/ShoppingCart.css"
+import { useNavigate } from "react-router-dom";
 
 function ShoppingCart() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [cartVoid, setCartVoid] = useState(true);
-
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const exists = localStorage.getItem('cart');
     if (exists) {
@@ -20,27 +21,35 @@ function ShoppingCart() {
     <div>
       <Header/>
       <div className="shopping-cart">
-      <div className="all-product-cart">
-        { cartVoid ?<div>Seu Carrinho Está Vazio!</div> : 
+      <div>
+        { cartVoid ? <div>Seu Carrinho Está Vazio!</div> : 
         shoppingCart.map(({ body :{title, price,thumbnail}})=>( 
           <div className="card-product-cart">
             <div className="container-product">
-                <p>Produto</p>
-                <hr />
-                <div className="product-img-title">
-                    <img src={thumbnail} alt={title} />
-                    <h3>{title}</h3>
+              <div className='product-name'>
+                <h5>Produto</h5>
+              </div>
+              <div className='product-qtd'>
+                <h5>Quantidade</h5>
+              </div>
+              <div className='product-price'>
+                <h5>Preço</h5>
+              </div>
+            </div>
+            <hr></hr>
+            <div className='container-image-qtd-price'>
+                <div className='product-image-title'>
+                  <img className="product-image" src={thumbnail} alt={title} />
+                  <h3>{title}</h3>
                 </div>
-            </div>
-            <div className="container-qtd">
-                <p>qtd</p>
-                <hr />
-                <div>- 1 +</div>
-            </div>
-            <div className="container-price">
-                <p>preço</p>
-                <hr />
-                <div>{`R$ ${price}`}</div>
+                <div className='product-qtd-logic'>
+                  <button>-</button>
+                  <h3>1</h3>
+                  <button>+</button>
+                </div>
+                <div className='product-price-logic'>
+                  <h3>{`R$ ${price}`}</h3>
+                </div>
             </div>
           </div>
           )) 
@@ -58,7 +67,7 @@ function ShoppingCart() {
             <div>R$ 10.000</div>
           </li>
         </ul>
-        <button className="button-finalizar-compra">Finalizar Compra</button>
+        <button className="button-finalizar-compra" onClick={ ()=> navigate('/finalizar-compras')} >Finalizar Compra</button>
         <button className="button-mais-produtos">Escolher Mais Produtos</button>
       </div>
       </div>

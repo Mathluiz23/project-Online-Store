@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: rgb(90, 44, 129);
+    background-color: #5a2c81;
 }
 
 .userName {
@@ -20,7 +20,7 @@
 .form-container{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:center;
     width: 100%;
     margin-top: 40px;
     height: 100px;
@@ -95,3 +95,11 @@
     color: white;
     font-size: 20px;
 }
+
+/* .logo-tipo{
+    display: flex;
+    position: fixed;
+    margin-top: 10px;
+    width: 180px;
+    height: 120px;
+} */
